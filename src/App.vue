@@ -1,10 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <router-link to="/">Weather</router-link>
+  <router-link to="/rates">Rates</router-link>
+  <router-view></router-view>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  name: 'App',
+  async created(){
+    this.fetchWeather();
+    this.fetchRates();
+  },
+  methods:{
+    ...mapActions('weather',['fetchWeather']),
+    ...mapActions('exchangeRates',['fetchRates'])
+  },
+}
+</script>
 
 <style>
 #app {
@@ -12,19 +26,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
+  margin: 2vh 20vh;
+} 
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+*{
+  box-sizing: border-box;
 }
 </style>
