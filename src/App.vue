@@ -5,19 +5,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
   name: 'App',
-  async created(){
+  async created() {
     this.fetchWeather();
     this.fetchRates();
   },
-  methods:{
-    ...mapActions('weather',['fetchWeather']),
-    ...mapActions('exchangeRates',['fetchRates'])
+  methods: {
+    ...mapActions('weather', ['fetchWeather']),
+    ...mapActions('exchangeRates', ['fetchRates']),
   },
-}
+};
 </script>
 
 <style>
@@ -27,9 +27,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin: 2vh 20vh;
-} 
+}
 
-*{
+* {
   box-sizing: border-box;
 }
 </style>
