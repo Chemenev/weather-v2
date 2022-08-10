@@ -2,15 +2,33 @@
   <form novalidate @submit.prevent.stop="submit">
     <input type="text" placeholder="Enter your city" v-model="enterCity" />
     <button type="submit">Submit</button>
+    <div class="currency-list" v-if="cityList.length > 0">
+      <div
+        class="currency-list__item"
+        v-for="(city, index) in cityList"
+        :key="index"
+        @click="currenCity(city)"
+      >
+        {{ city }}
+      </div>
+    </div>
   </form>
 </template>
+
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
       enterCity: '',
     };
+  },
+  created() {
+    this.enterCity = this.value;
+  },
+  computed: {
+    ...mapGetters('weather', ['cityList']),
   },
   methods: {
     ...mapActions('weather', ['fetchWeather']),
@@ -20,16 +38,20 @@ export default {
         this.enterCity = '';
       }
     },
+    currenCity(value) {
+      this.enterCity = value;
+    },
   },
 };
 </script>
+
 <style scoped>
 form {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
-  /* padding: 10vh; */
-  margin: 2vh 0;
-  background: #fafafa;
+  position: relative;
+  margin: 2vh 0 0;
 }
 
 input[type='text'] {
@@ -53,7 +75,7 @@ input[type='text']:focus {
 }
 
 button {
-  flex-basis: 15%;
+  flex-basis: 14%;
   cursor: pointer;
   background: #ec6e4c;
   color: #fff;
@@ -69,6 +91,29 @@ button:hover {
 }
 
 button:active {
+  background: #000;
+  color: #fafafa;
+}
+
+.currency-list {
+  display: flex;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.currency-list__item {
+  padding: 15px 20px;
+  background: #fafafa;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s;
+}
+
+.currency-list__item:hover {
+  background: #ec6e4c;
+  color: #fff;
+}
+
+.currency-list__item:active {
   background: #000;
   color: #fafafa;
 }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -13,9 +13,20 @@ export default {
     this.fetchWeather();
     this.fetchRates();
   },
+  mounted() {
+    if (localStorage.getItem('city-list')) {
+      console.log('sa');
+
+      for (const item of JSON.parse(localStorage.getItem('city-list'))) {
+        console.log(item);
+        this.addCityList(item);
+      }
+    }
+  },
   methods: {
     ...mapActions('weather', ['fetchWeather']),
     ...mapActions('exchangeRates', ['fetchRates']),
+    ...mapMutations('weather', ['addCityList']),
   },
 };
 </script>

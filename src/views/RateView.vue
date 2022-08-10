@@ -26,7 +26,6 @@ export default {
       'baseСurrency',
     ]),
   },
-  methods: {},
 };
 </script>
 

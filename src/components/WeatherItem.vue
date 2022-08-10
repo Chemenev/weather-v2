@@ -8,6 +8,7 @@
 
 <script>
 const DAY_MAP = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
+
 export default {
   props: {
     day: {
@@ -29,6 +30,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .weather-container__item {
   width: 14%;

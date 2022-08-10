@@ -18,6 +18,7 @@
     </div>
   </form>
 </template>
+
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -44,10 +45,14 @@ export default {
     addFromRateList(rate) {
       for (let value in this.listRates) {
         if (rate === value) {
-          const obg = {};
+          this.addRates({
+            symbol: value,
+            cost: this.listRates[value].toFixed(2),
+          });
+          /*      const obg = {};
           obg.symbol = value;
           obg.cost = this.listRates[value].toFixed(2);
-          this.addRates(obg);
+          this.addRates(obg); */
           this.rateName = '';
         }
       }

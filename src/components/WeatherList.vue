@@ -73,6 +73,7 @@ export default {
     },
     currentFullDate() {
       const dayData = this.firstDay.dt_txt;
+
       let day = new Date(dayData).getDay();
       day = String(day).length === 1 ? '0' + day : day;
 
