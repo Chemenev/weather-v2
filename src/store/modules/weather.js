@@ -23,7 +23,7 @@ export default {
 		cityName: '',
 		cityList: [],
 		firtsDay: {},
-		enterCity: 'Moscow',
+		enterCity: 'moscow',
 		isError: false,
 		loaded: false
 	},

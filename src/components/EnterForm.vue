@@ -1,17 +1,44 @@
 <template>
   <form novalidate @submit.prevent.stop="submit">
-    <input type="text" placeholder="Enter your city" v-model="enterCity" />
-    <button type="submit">Submit</button>
-    <div class="currency-list" v-if="cityList.length > 0">
+    <div class="like-select">
+      <input
+        class="like-select__enter-input"
+        type="text"
+        placeholder="Enter your city"
+        v-model="enterCity"
+        @click="
+          {
+            isActive = true;
+          }
+        "
+      />
       <div
-        class="currency-list__item"
-        v-for="(city, index) in cityList"
-        :key="index"
-        @click="currenCity(city)"
+        class="like-select__append"
+        v-bind:class="{ active: isActive }"
+        @click="
+          {
+            isActive = true;
+          }
+        "
       >
-        {{ city }}
+        +
+      </div>
+      <div
+        class="like-select__menu"
+        v-if="cityList.length > 0 && isActive === true"
+        v-click-outside="hide"
+      >
+        <div
+          class="ike-select__menu-item"
+          v-for="(city, index) in filteredCity()"
+          :key="index"
+          @click="currenCity(city)"
+        >
+          {{ city }}
+        </div>
       </div>
     </div>
+    <button type="submit">Submit</button>
   </form>
 </template>
 
@@ -22,6 +49,7 @@ export default {
   data() {
     return {
       enterCity: '',
+      isActive: false,
     };
   },
   created() {
@@ -35,17 +63,69 @@ export default {
     submit() {
       if (this.enterCity) {
         this.fetchWeather(this.enterCity);
-        this.enterCity = '';
       }
     },
     currenCity(value) {
       this.enterCity = value;
+      this.isActive = false;
+    },
+    hide() {
+      this.isActive = false;
+    },
+    filteredCity() {
+      const filteredCity = this.cityList.filter((item) =>
+        item.includes(this.enterCity)
+      );
+      return filteredCity.slice(0, 4);
     },
   },
 };
 </script>
 
 <style scoped>
+.like-select {
+  width: 84%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #000;
+  position: relative;
+}
+
+.like-select__menu {
+  position: absolute;
+  left: -2px;
+  top: 100%;
+  width: calc(100% + 4px);
+  text-align: left;
+  border: 2px solid #000;
+  background: #fff;
+}
+
+.like-select__append {
+  padding: 15px;
+  font-size: 25px;
+  font-weight: 600;
+  transition: transform 0.4s, color 0.4s;
+  cursor: pointer;
+}
+
+.like-select__append.active {
+  transform: rotate(45deg);
+  color: #ec6e4c;
+}
+
+.ike-select__menu-item {
+  text-transform: capitalize;
+  padding: 7px 15px;
+}
+
+.ike-select__menu-item:hover {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
 form {
   display: flex;
   flex-wrap: wrap;
@@ -55,10 +135,10 @@ form {
 }
 
 input[type='text'] {
-  flex-basis: 85%;
+  flex-basis: 84%;
   font-size: 18px;
   color: #000;
-  border: 2px solid #000;
+  border: none;
   padding: 20px;
   transition: border-color 0.4s;
 }

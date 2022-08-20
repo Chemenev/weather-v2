@@ -49,10 +49,6 @@ export default {
             symbol: value,
             cost: this.listRates[value].toFixed(2),
           });
-          /*      const obg = {};
-          obg.symbol = value;
-          obg.cost = this.listRates[value].toFixed(2);
-          this.addRates(obg); */
           this.rateName = '';
         }
       }
